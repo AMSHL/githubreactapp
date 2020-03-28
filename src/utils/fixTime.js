@@ -19,16 +19,16 @@ const fixPlural = (n, text_forms) => {
     }
 }
 
-export const fixTime = (date) => {
+ export const fixTime = (date) => {
     let updatedDate = new Date(date).getTime();
     const time = parseInt(Date.now() - updatedDate);
     if (time < MINUTE) {
         return 'только что';
     } else if (time < HOUR) {
-        let fixedTime = time/MINUTE;
+        let fixedTime = Math.round(time/MINUTE);
         return `${fixedTime} ${fixPlural(fixedTime, ['минуту', 'минуты', 'минут'])} назад`;
     } else if (time < DAY) {
-        let fixedTime = time/HOUR;
+        let fixedTime = Math.round(time/HOUR);
         return `${fixedTime} ${fixPlural(fixedTime, ['час', 'часа', 'часов'])} назад`;
     } else {
         let options = {

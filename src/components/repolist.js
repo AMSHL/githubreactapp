@@ -12,7 +12,13 @@ class ReposList extends React.Component {
     }
     componentDidMount(){
         this.setState({repositories: this.props.data.repositoryOwner.repositories});
-        }
+        this.interval = setInterval(() => this.setState({ time: Date.now() }), 10000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+    
     render() {
         if (this.state != null) {
         const gridSettings = {
@@ -36,7 +42,6 @@ class ReposList extends React.Component {
                             style={{
                                 width: "100%",
                                 margin: "15px",
-                                textTransform: "capitalize"
                             }}
                         >
                           Обновлялся: <br />{fixTime(node.updatedAt)}
